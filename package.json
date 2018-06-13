@@ -1,0 +1,36 @@
+{
+    "name": "l2d",
+    "displayName": "l2d",
+    "description": "tool for l2d file",
+    "version": "0.0.1",
+    "publisher": "0xabcdef",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:l2d.showPreview"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "l2d.showPreview",
+                "title": "l2d: Open Preview to the Side"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build",
+        "build": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "@types/node": "^7.0.43"
+    }
+}
