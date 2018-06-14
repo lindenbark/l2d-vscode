@@ -13,6 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
         const title = `미리보기 ${ path.basename(resource.fsPath) }`;
         const panel = vscode.window.createWebviewPanel('l2d', title, sideColumn, {
             enableScripts: true,
+            retainContextWhenHidden: true,
             localResourceRoots: getLocalResourceRoots(resource, context),
         });
         render(resource);
@@ -36,7 +37,6 @@ export function activate(context: vscode.ExtensionContext) {
             if (uri.fsPath !== resource.fsPath) return;
             const scriptPathOnDisk = vscode.Uri.file(path.join(context.extensionPath, 'media', 'index.js'));
             const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
-            vscode.window.showInformationMessage(scriptUri.toString());
             const document = await vscode.workspace.openTextDocument(resource);
             const nonce = `${ new Date().getTime() }${ new Date().getMilliseconds() }`;
             panel.webview.html = `<!doctype html><html>
