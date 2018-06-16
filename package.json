@@ -24,13 +24,21 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run build",
-        "build": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
+        "build": "tsc -p ./ && parcel build src/media/index.tsx -d media -o index.js",
+        "watch": "concurrently \"tsc -watch -p ./\" \"parcel watch src/media/index.tsx -d media -o index.js\" -k",
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {
         "typescript": "^2.6.1",
         "vscode": "^1.1.6",
         "@types/node": "^7.0.43"
+    },
+    "dependencies": {
+        "@types/react": "^16.3.18",
+        "@types/react-dom": "^16.0.6",
+        "concurrently": "^3.5.1",
+        "parcel-bundler": "^1.9.0",
+        "react": "^16.4.1",
+        "react-dom": "^16.4.1"
     }
 }

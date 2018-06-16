@@ -47,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
                     <title>${ title }</title>
                 </head>
                 <body>
+                    <div id="app"></div>
                     <script nonce="${ nonce }">const initialContent = ${ JSON.stringify(document.getText()) };</script>
                     <script nonce="${ nonce }" src="${ scriptUri }"></script>
                 </body>

@@ -1,5 +1,7 @@
+.cache/**
 .vscode/**
 out/**/*.map
+media/**/*.map
 src/**
 .gitignore
 tsconfig.json
