@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as yaml from 'js-yaml';
 
 declare const initialContent: string;
 
@@ -12,12 +13,13 @@ class App extends React.Component<{}, AppState> {
     componentDidMount() { window.addEventListener('message', this.onMessage); }
     componentWillUnmount() { window.removeEventListener('message', this.onMessage); }
     render() {
-        return <div>{
-            this.state.content
-                .split(/\r?\n/g)
-                .map((text, index) => [text, <br key={index}/>])
-                .reduce((prev, curr) => prev.concat(curr), [])
-        }</div>;
+        const { content } = this.state;
+        try {
+            const data = yaml.safeLoad(content);
+            return <pre>{ yaml.safeDump(data) }</pre>;
+        } catch (err) {
+            return <p>error occured</p>;
+        }
     }
 }
 
