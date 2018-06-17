@@ -36,14 +36,17 @@ export function activate(context: vscode.ExtensionContext) {
         async function render(uri: vscode.Uri) {
             if (uri.fsPath !== resource.fsPath) return;
             const scriptPathOnDisk = vscode.Uri.file(path.join(context.extensionPath, 'media', 'index.js'));
+            const stylePathOnDisk = vscode.Uri.file(path.join(context.extensionPath, 'media', 'index.css'));
             const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
+            const styleUri = stylePathOnDisk.with({ scheme: 'vscode-resource' });
             const document = await vscode.workspace.openTextDocument(resource);
             const nonce = `${ new Date().getTime() }${ new Date().getMilliseconds() }`;
             panel.webview.html = `<!doctype html><html>
                 <head>
                     <meta charset="utf-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: https:; script-src 'nonce-${ nonce }';">
+                    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: https:; script-src 'nonce-${ nonce }'; style-src vscode-resource:;">
+                    <link rel="stylesheet" href="${styleUri}">
                     <title>${ title }</title>
                 </head>
                 <body>

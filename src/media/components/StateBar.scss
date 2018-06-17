@@ -1,0 +1,9 @@
+:local(.state-bar) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100vw;
+    height: 35px;
+    color: var(--vscode-editor-foreground);
+    background-color: var(--vscode-editorGroupHeader-tabsBackground);
+    border-bottom: 1px solid var(--vscode-editorGroupHeader-tabsBorder);
+}
