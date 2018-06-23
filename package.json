@@ -24,7 +24,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run build",
-        "build": "tsc -p ./ && NODE_ENV=production webpack",
+        "build": "cross-env NODE_ENV=production && tsc -p ./ && webpack",
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
@@ -38,6 +38,7 @@
         "@types/react": "^16.3.18",
         "@types/react-dom": "^16.0.6",
         "@types/webpack": "^4.4.0",
+        "cross-env": "^5.2.0",
         "css-loader": "^0.28.11",
         "mini-css-extract-plugin": "^0.4.0",
         "node-sass": "^4.9.0",
