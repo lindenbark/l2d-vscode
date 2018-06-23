@@ -7,32 +7,51 @@ import StateBar from './components/StateBar';
 import Timeline from './components/Timeline';
 import Viewport from './components/Viewport';
 import { L2d } from './model/l2d';
+import {
+    createProviders,
+    l2dContext,
+    selectedStateContext,
+    SelectedState,
+} from './context';
 
 declare const initialContent: string;
 
 type Document = { error: false, data: L2d } | { error: true, data: Error };
-
-class App extends React.Component<{}, Document> {
-    state: Document = getDocument(initialContent);
-    onMessage = (e: MessageEvent) => 'content' in e.data && this.setState(getDocument(e.data.content));
+interface AppState {
+    document: Document;
+    selectedState: SelectedState;
+}
+class App extends React.Component<{}, AppState> {
+    state: AppState = {
+        document: getDocument(initialContent),
+        selectedState: {
+            stateName: null,
+            selectState: (stateName: string | null) => this.setState({
+                selectedState: { ...this.state.selectedState, stateName },
+            }),
+        },
+    };
+    onMessage = (e: MessageEvent) => 'content' in e.data && this.setState({ document: getDocument(e.data.content) });
     componentDidMount() { window.addEventListener('message', this.onMessage); }
     componentWillUnmount() { window.removeEventListener('message', this.onMessage); }
-    componentDidCatch(error: Error) { this.setState({ error: true, data: error }); }
+    componentDidCatch(error: Error) { this.setState({ document: { error: true, data: error } }); }
     render() {
-        if (this.state.error) {
-            const { data } = this.state;
+        const { document, selectedState } = this.state;
+        if (document.error) {
+            const { data } = document;
             if ('stack' in data) return <pre>{ data.stack }</pre>;
             if ('name' in data && 'message' in data) return <pre>{ data.name }: { data.message }</pre>;
             return <p>error occurred</p>;
         }
-        const { data } = this.state;
-        return <>
-            <StateBar l2d={data}/>
-            <Timeline l2d={data}/>
-            <Viewport l2d={data}/>
-        </>;
+        return <Providers values={[document.data, selectedState]}>
+            <StateBar/>
+            <Timeline/>
+            <Viewport/>
+        </Providers>;
     }
 }
+
+const Providers = createProviders([l2dContext, selectedStateContext]);
 
 function getDocument(content: string): Document {
     try {
