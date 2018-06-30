@@ -51,7 +51,11 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
-const Providers = createProviders([l2dContext, selectedStateContext]);
+type Contexts = [typeof l2dContext, typeof selectedStateContext];
+const Providers = createProviders<Contexts>([
+    l2dContext,
+    selectedStateContext,
+]);
 
 function getDocument(content: string): Document {
     try {

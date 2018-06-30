@@ -9,7 +9,11 @@ import {
     SelectedState,
 } from '../context';
 
-const Consumers = createConsumers([ l2dContext, selectedStateContext ]);
+type Contexts = [typeof l2dContext, typeof selectedStateContext];
+const Consumers = createConsumers<Contexts>([
+    l2dContext,
+    selectedStateContext,
+]);
 type ConsumeValues = [L2d, SelectedState];
 
 export default class Viewport extends React.Component {
