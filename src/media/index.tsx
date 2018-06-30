@@ -8,9 +8,7 @@ import Timeline from './components/Timeline';
 import Viewport from './components/Viewport';
 import { L2d } from './model/l2d';
 import {
-    createProviders,
-    l2dContext,
-    selectedStateContext,
+    everyContext,
     SelectedState,
 } from './context';
 
@@ -43,19 +41,13 @@ class App extends React.Component<{}, AppState> {
             if ('name' in data && 'message' in data) return <pre>{ data.name }: { data.message }</pre>;
             return <p>error occurred</p>;
         }
-        return <Providers values={[document.data, selectedState]}>
+        return <everyContext.Provider value={[document.data, selectedState]}>
             <StateBar/>
             <Timeline/>
             <Viewport/>
-        </Providers>;
+        </everyContext.Provider>;
     }
 }
-
-type Contexts = [typeof l2dContext, typeof selectedStateContext];
-const Providers = createProviders<Contexts>([
-    l2dContext,
-    selectedStateContext,
-]);
 
 function getDocument(content: string): Document {
     try {

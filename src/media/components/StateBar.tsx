@@ -1,24 +1,14 @@
 import * as React from 'react';
 
-import { L2d, L2dState } from '../model/l2d';
+import { L2dState } from '../model/l2d';
 import {
-    createConsumers,
-    l2dContext,
-    selectedStateContext,
-    SelectedState,
+    everyContext,
 } from '../context';
 import * as styles from './StateBar.scss';
 
-type Contexts = [typeof l2dContext, typeof selectedStateContext];
-const Consumers = createConsumers<Contexts>([
-    l2dContext,
-    selectedStateContext,
-]);
-type ConsumeValues = [L2d, SelectedState];
-
 export default class StateBar extends React.Component {
     render() {
-        return <Consumers>{ ([ l2d, { stateName, selectState } ]: ConsumeValues) =>
+        return <everyContext.Consumer>{ ([ l2d, { stateName, selectState } ]) =>
             <div className={styles['state-bar']}>{
                 l2d.states.map(state => <State
                     selected={state.name === stateName}
@@ -26,7 +16,7 @@ export default class StateBar extends React.Component {
                     state={state}
                 />)
             }</div>
-        }</Consumers>;
+        }</everyContext.Consumer>;
     }
 }
 

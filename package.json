@@ -28,6 +28,7 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
+        "join-react-context": "0.0.0",
         "js-yaml": "^3.12.0",
         "react": "^16.4.1",
         "react-dom": "^16.4.1"
