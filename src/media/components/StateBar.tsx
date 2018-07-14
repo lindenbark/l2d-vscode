@@ -1,22 +1,29 @@
 import * as React from 'react';
+import { connectContext } from 'connect-react-context';
+import { ContextValues } from 'join-react-context';
 
 import { L2dState } from '../model/l2d';
 import {
+    EveryContext,
     everyContext,
 } from '../context';
 import * as styles from './StateBar.scss';
 
-export default class StateBar extends React.Component {
+interface StateBarProps {
+    l2d: ContextValues<EveryContext>[0];
+    stateName: ContextValues<EveryContext>[1]['stateName'];
+    selectState: ContextValues<EveryContext>[1]['selectState'];
+}
+class StateBar extends React.Component<StateBarProps> {
     render() {
-        return <everyContext.Consumer>{ ([ l2d, { stateName, selectState } ]) =>
-            <div className={styles['state-bar']}>{
-                l2d.states.map(state => <State
-                    selected={state.name === stateName}
-                    onSelect={selectState}
-                    state={state}
-                />)
-            }</div>
-        }</everyContext.Consumer>;
+        const { l2d, stateName, selectState } = this.props;
+        return <div className={styles['state-bar']}>{
+            l2d.states.map(state => <State
+                selected={state.name === stateName}
+                onSelect={selectState}
+                state={state}
+            />)
+        }</div>;
     }
 }
 
@@ -36,3 +43,12 @@ const State: React.SFC<StateProps> = ({
         { state.name }
     </div>;
 };
+
+export default connectContext<
+    ContextValues<EveryContext>,
+    StateBarProps,
+    'l2d' | 'stateName' | 'selectState'
+>(
+    everyContext.Consumer,
+    ([ l2d, { stateName, selectState } ], props) => ({ l2d, stateName, selectState, ...props }),
+)(StateBar);

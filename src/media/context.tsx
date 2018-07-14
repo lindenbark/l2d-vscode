@@ -15,5 +15,5 @@ export const selectedStateContext = React.createContext<SelectedState>({
     selectState: noop,
 });
 
-type Contexts = [typeof l2dContext, typeof selectedStateContext];
-export const everyContext = joinContext<Contexts>([l2dContext, selectedStateContext]);
+export type EveryContext = [typeof l2dContext, typeof selectedStateContext];
+export const everyContext = joinContext<EveryContext>([l2dContext, selectedStateContext]);

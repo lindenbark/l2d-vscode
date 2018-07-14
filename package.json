@@ -28,7 +28,8 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
-        "join-react-context": "0.0.0",
+        "connect-react-context": "0.0.0",
+        "join-react-context": "0.0.2",
         "js-yaml": "^3.12.0",
         "react": "^16.4.1",
         "react-dom": "^16.4.1"
@@ -45,7 +46,7 @@
         "node-sass": "^4.9.0",
         "sass-loader": "^7.0.3",
         "ts-loader": "^4.4.1",
-        "typescript": "^2.6.1",
+        "typescript": "^2.9.2",
         "vscode": "^1.1.6",
         "webpack": "^4.12.0",
         "webpack-command": "^0.2.1"
