@@ -1,0 +1,9 @@
+:local(.viewport) {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100vw;
+    overflow: scroll;
+    color: var(--vscode-editor-foreground);
+    background-color: var(--vscode-editor-background);
+    user-select: none;
+}

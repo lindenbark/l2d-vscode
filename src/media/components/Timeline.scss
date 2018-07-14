@@ -1,0 +1,13 @@
+:local(.timeline) {
+    $timeline-height: 150px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: $timeline-height;
+    color: var(--vscode-editor-foreground);
+    background-color: var(--vscode-panel-background);
+    border-bottom: 1px solid var(--vscode-panel-border);
+    user-select: none;
+}
